@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management — Detaliu utilizator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="state-bar">
+    <span class="state-bar-label">Mockup</span>
+    <a href="index.html">lista</a>
+    <a href="states.html">stari</a>
+    <a href="user-form.html">formular</a>
+    <a href="user-detail.html" class="active">detaliu</a>
+    <span class="state-bar-label">ruta /users/:id</span>
+  </div>
+
+  <div class="app">
+
+    <header class="topbar">
+      <div class="topbar-brand">
+        <div class="icon">U</div>
+        User Management
+      </div>
+      <div class="topbar-user">
+        <span>admin@mycode.ro</span>
+        <div class="topbar-avatar">AD</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav class="sidebar-section">
+        <div class="sidebar-label">Principal</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html" class="active"><span class="nav-icon">&#9633;</span> Utilizatori</a></li>
+          <li><a href="user-form.html"><span class="nav-icon">&#43;</span> Utilizator nou</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Bogdan Alexandrescu</h1>
+          <p class="page-subtitle">Detaliile unui singur utilizator, citite dupa identificator.</p>
+        </div>
+        <div class="table-actions">
+          <a href="user-form.html" class="btn btn-outline">Editeaza</a>
+          <button class="btn btn-danger">Sterge</button>
+        </div>
+      </div>
+
+      <!-- GET /api/users/{id} -> UserResponse -->
+      <!-- 404 daca identificatorul nu exista (vezi states.html) -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Date</h2>
+          <span class="endpoint-tag">GET /api/users/{id}</span>
+        </div>
+        <div class="card-body">
+          <div class="detail-section">
+            <div class="detail-grid">
+              <div class="detail-row">
+                <span class="detail-key">Identificator</span>
+                <span class="detail-value text-mono">3f2a91c4-8b7d-4e6a-9c25-1f0d7ba3e912</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Prenume</span>
+                <span class="detail-value">Bogdan</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Nume</span>
+                <span class="detail-value">Alexandrescu</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Email</span>
+                <span class="detail-value">bogdan.alexandrescu@gmail.com</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-key">Varsta</span>
+                <span class="detail-value"><span class="badge badge-neutral">41 ani</span></span>
+              </div>
+            </div>
+          </div>
+          <p class="form-hint">Parola nu vine niciodata de la server.</p>
+        </div>
+      </div>
+
+      <!-- ═══════════ CONFIRMARE STERGERE ═══════════ -->
+      <!-- DELETE /api/users/{id} -> 200 cu UserResponse-ul userului sters -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Confirmare stergere</h2>
+          <span class="endpoint-tag">DELETE /api/users/{id}</span>
+        </div>
+        <div class="card-body">
+          <div class="modal" style="position: static; box-shadow: none; border: 1px solid var(--border)">
+            <div class="modal-header">
+              <h3 class="modal-title">Stergi utilizatorul?</h3>
+            </div>
+            <div class="modal-body">
+              <p>Bogdan Alexandrescu (bogdan.alexandrescu@gmail.com) va fi sters definitiv.</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline">Renunta</button>
+              <button class="btn btn-danger">Sterge definitiv</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

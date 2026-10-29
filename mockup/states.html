@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management — Stari</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="state-bar">
+    <span class="state-bar-label">Mockup</span>
+    <a href="index.html">lista</a>
+    <a href="states.html" class="active">stari</a>
+    <a href="user-form.html">formular</a>
+    <a href="user-detail.html">detaliu</a>
+    <span class="state-bar-label">toate starile aceluiasi tabel</span>
+  </div>
+
+  <div class="app">
+
+    <header class="topbar">
+      <div class="topbar-brand">
+        <div class="icon">U</div>
+        User Management
+      </div>
+      <div class="topbar-user">
+        <span>admin@mycode.ro</span>
+        <div class="topbar-avatar">AD</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav class="sidebar-section">
+        <div class="sidebar-label">Principal</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html"><span class="nav-icon">&#9633;</span> Utilizatori</a></li>
+          <li><a href="user-form.html"><span class="nav-icon">&#43;</span> Utilizator nou</a></li>
+        </ul>
+      </nav>
+      <nav class="sidebar-section">
+        <div class="sidebar-label">Diagnostic</div>
+        <ul class="sidebar-nav">
+          <li><a href="states.html" class="active"><span class="nav-icon">&#9888;</span> Stari de incarcare</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Starile unei cereri</h1>
+          <p class="page-subtitle">Acelasi tabel, in fiecare stare in care il poate gasi utilizatorul.</p>
+        </div>
+      </div>
+
+      <!-- ═══════════ 1. SE INCARCA ═══════════ -->
+      <!-- httpResource: isLoading() === true -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">1. Se incarca <span class="spinner"></span></h2>
+          <span class="endpoint-tag">isLoading() === true</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Utilizator</th>
+              <th>Varsta</th>
+              <th>Identificator</th>
+              <th class="text-right">Actiuni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="skeleton skeleton-cell w-80"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+              <td><div class="skeleton skeleton-cell w-60"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+            </tr>
+            <tr>
+              <td><div class="skeleton skeleton-cell w-60"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+              <td><div class="skeleton skeleton-cell w-80"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+            </tr>
+            <tr>
+              <td><div class="skeleton skeleton-cell w-80"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+              <td><div class="skeleton skeleton-cell w-60"></div></td>
+              <td><div class="skeleton skeleton-cell w-40"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══════════ 2. LISTA GOALA ═══════════ -->
+      <!-- serverul a raspuns 200 cu []  -> NU e o eroare -->
+      <!-- in Angular: blocul @empty al lui @for               -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">2. Niciun rezultat</h2>
+          <span class="endpoint-tag">200 [] &mdash; @empty</span>
+        </div>
+        <div class="empty-state">
+          <div class="empty-state-icon">&#9634;</div>
+          <h3>Niciun utilizator</h3>
+          <p>Niciun utilizator nu corespunde filtrelor alese.</p>
+          <button class="btn btn-outline btn-sm">Sterge filtrele</button>
+        </div>
+      </div>
+
+      <!-- ═══════════ 3. EROARE 404 ═══════════ -->
+      <!-- ApiError { timestamp, status, error, message, path, details } -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">3. Resursa nu exista</h2>
+          <span class="endpoint-tag">error() &mdash; 404</span>
+        </div>
+        <div class="card-body">
+          <div class="error-panel">
+            <div class="error-panel-title">
+              <span class="error-panel-status">404</span>
+              Not Found
+            </div>
+            <p class="error-panel-message">No user found with this email</p>
+            <p class="error-panel-path">GET /api/users/by-email?email=lipsa@gmail.com</p>
+          </div>
+          <button class="btn btn-outline btn-sm">Incearca din nou</button>
+        </div>
+      </div>
+
+      <!-- ═══════════ 4. EROARE 400 CU DETALII ═══════════ -->
+      <!-- details[] = lista "camp: mesaj", sortata de server -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">4. Date respinse de server</h2>
+          <span class="endpoint-tag">error() &mdash; 400 cu details[]</span>
+        </div>
+        <div class="card-body">
+          <div class="error-panel">
+            <div class="error-panel-title">
+              <span class="error-panel-status">400</span>
+              Bad Request
+            </div>
+            <p class="error-panel-message">Validation failed</p>
+            <ul class="error-panel-details">
+              <li>age: Age must be greater than zero</li>
+              <li>email: Email must be a valid address</li>
+              <li>password: Password must be at least 8 characters</li>
+            </ul>
+            <p class="error-panel-path">POST /api/users</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ 5. CONFLICT 409 ═══════════ -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">5. Conflict</h2>
+          <span class="endpoint-tag">error() &mdash; 409</span>
+        </div>
+        <div class="card-body">
+          <div class="error-panel">
+            <div class="error-panel-title">
+              <span class="error-panel-status">409</span>
+              Conflict
+            </div>
+            <p class="error-panel-message">Email already used by another user</p>
+            <p class="error-panel-path">POST /api/users</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ 6. REINCARCARE PESTE DATE VECHI ═══════════ -->
+      <!-- status() === 'reloading': datele vechi rama pe ecran -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">6. Se reincarca <span class="spinner"></span></h2>
+          <span class="endpoint-tag">status() === 'reloading'</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Utilizator</th>
+              <th>Varsta</th>
+              <th class="text-right">Actiuni</th>
+            </tr>
+          </thead>
+          <tbody style="opacity: 0.45">
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">MS</div>
+                  <div>
+                    <div class="user-cell-name">Maria Stere</div>
+                    <div class="user-cell-email">maria.stere@gmail.com</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-neutral">26 ani</span></td>
+              <td class="text-right">
+                <div class="table-actions">
+                  <button class="btn btn-outline btn-sm" disabled>Detalii</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">CT</div>
+                  <div>
+                    <div class="user-cell-name">Cristian Tudor</div>
+                    <div class="user-cell-email">cristian.tudor@gmail.com</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-neutral">30 ani</span></td>
+              <td class="text-right">
+                <div class="table-actions">
+                  <button class="btn btn-outline btn-sm" disabled>Detalii</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>

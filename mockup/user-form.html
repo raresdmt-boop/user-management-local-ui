@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management — Formular</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="state-bar">
+    <span class="state-bar-label">Mockup</span>
+    <a href="index.html">lista</a>
+    <a href="states.html">stari</a>
+    <a href="user-form.html" class="active">formular</a>
+    <a href="user-detail.html">detaliu</a>
+    <span class="state-bar-label">mesajele sunt cele din DTO-uri</span>
+  </div>
+
+  <div class="app">
+
+    <header class="topbar">
+      <div class="topbar-brand">
+        <div class="icon">U</div>
+        User Management
+      </div>
+      <div class="topbar-user">
+        <span>admin@mycode.ro</span>
+        <div class="topbar-avatar">AD</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav class="sidebar-section">
+        <div class="sidebar-label">Principal</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html"><span class="nav-icon">&#9633;</span> Utilizatori</a></li>
+          <li><a href="user-form.html" class="active"><span class="nav-icon">&#43;</span> Utilizator nou</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Utilizator nou</h1>
+          <p class="page-subtitle">Cinci campuri, cinci reguli. Aceleasi reguli exista si pe server.</p>
+        </div>
+        <a href="index.html" class="btn btn-outline">Renunta</a>
+      </div>
+
+      <!-- ═══════════ CREARE ═══════════ -->
+      <!-- POST /api/users  cu UserCreateRequest                       -->
+      <!-- 201 + header Location: /api/users/{id}                      -->
+      <!-- 400 Validation failed -> details[] ajung sub campuri        -->
+      <!-- 409 Email already used -> panoul de sus                     -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Date utilizator</h2>
+          <span class="endpoint-tag">POST /api/users</span>
+        </div>
+        <div class="card-body">
+
+          <!-- panoul apare doar cand serverul refuza intreaga cerere (409) -->
+          <div class="error-panel">
+            <div class="error-panel-title">
+              <span class="error-panel-status">409</span>
+              Conflict
+            </div>
+            <p class="error-panel-message">Email already used by another user</p>
+            <p class="error-panel-path">POST /api/users</p>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label class="form-label">Prenume</label>
+              <input type="text" class="form-input" value="Cristian" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nume</label>
+              <input type="text" class="form-input is-invalid" value="" />
+              <span class="form-error">Last name is required</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input is-invalid" value="cristian.tudor" />
+              <span class="form-error">Email must be a valid address</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Parola</label>
+              <input type="password" class="form-input is-invalid" value="1234" />
+              <span class="form-error">Password must be at least 8 characters</span>
+              <span class="form-hint">Minim 8 caractere.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Varsta</label>
+              <input type="number" class="form-input is-invalid" value="0" />
+              <span class="form-error">Age must be greater than zero</span>
+              <span class="form-hint">Intre 1 si 120.</span>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <a href="index.html" class="btn btn-outline">Renunta</a>
+            <button class="btn btn-primary" disabled>Salveaza</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════ EDITARE ═══════════ -->
+      <!-- PATCH /api/users/{id} cu UserUpdateRequest                  -->
+      <!-- ATENTIE: aici campurile sunt OPTIONALE, nu au @NotBlank,    -->
+      <!-- iar parola NU face parte din cerere.                        -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Editare &mdash; acelasi ecran, alt contract</h2>
+          <span class="endpoint-tag">PATCH /api/users/{id}</span>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label class="form-label">Prenume</label>
+              <input type="text" class="form-input" value="Bogdan" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nume</label>
+              <input type="text" class="form-input" value="Alexandrescu" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" value="bogdan.alexandrescu@gmail.com" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Varsta</label>
+              <input type="number" class="form-input" value="41" />
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <a href="index.html" class="btn btn-outline">Renunta</a>
+            <button class="btn btn-primary">Salveaza modificarile</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ SCHIMBARE PAROLA ═══════════ -->
+      <!-- PUT /api/users/{id}/password cu ChangePasswordRequest -->
+      <!-- raspunde UserResponse, fara parola in corp               -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Schimbare parola</h2>
+          <span class="endpoint-tag">PUT /api/users/{id}/password</span>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Parola noua</label>
+              <input type="password" class="form-input" value="" />
+              <span class="form-hint">Minim 8 caractere.</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary">Schimba parola</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
