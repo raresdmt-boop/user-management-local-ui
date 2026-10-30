@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Management — componente</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .gallery { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+    .gallery-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 32px; }
+    .gallery-nav a { font-size: 13px; color: var(--primary); text-decoration: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; background: var(--surface); }
+    .demo { margin-bottom: 32px; }
+    .demo h2 { font-size: 18px; margin-bottom: 4px; }
+    .demo > p { font-size: 13px; color: var(--text-secondary); margin-bottom: 12px; }
+    .demo-preview { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius) var(--radius) 0 0; padding: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+    .demo-preview > .form-group { width: 260px; }
+    .demo-preview > .card, .demo-preview > table, .demo-preview > .modal { width: 100%; margin: 0; }
+    .demo pre { margin: 0; background: #0f172a; color: #e2e8f0; font-size: 12px; line-height: 1.5; padding: 14px 16px; border-radius: 0 0 var(--radius) var(--radius); overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+  <div class="state-bar">
+    <span class="state-bar-label">Mockup</span>
+    <a href="index.html">Aplicatia</a>
+    <a href="componente.html" class="active">Componente</a>
+  </div>
+
+  <div class="gallery">
+    <h1 class="page-title">Componente</h1>
+    <p class="page-subtitle">Fiecare componenta: cum arata + HTML-ul de copiat. In JSX, class devine className.</p>
+
+    <nav class="gallery-nav">
+      <a href="#butoane">Butoane</a>
+      <a href="#campuri">Campuri</a>
+      <a href="#erori">Erori pe campuri</a>
+      <a href="#formular">Formular cu erori</a>
+      <a href="#badge">Badge</a>
+      <a href="#statistica">Statistica</a>
+      <a href="#tabel">Rand de tabel</a>
+      <a href="#gol">Lista goala</a>
+      <a href="#dialog">Dialog</a>
+    </nav>
+
+    <section class="demo" id="butoane">
+      <h2>Butoane</h2>
+      <p>Principal, secundar, periculos, mic, dezactivat.</p>
+      <div class="demo-preview">
+        <button class="btn btn-primary">Salveaza</button>
+        <button class="btn btn-outline">Renunta</button>
+        <button class="btn btn-danger">Sterge</button>
+        <button class="btn btn-outline btn-sm">Editeaza</button>
+        <button class="btn btn-primary" disabled>Salveaza</button>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="campuri">
+      <h2>Campuri</h2>
+      <p>Simplu, obligatoriu cu indiciu, numeric, dezactivat.</p>
+      <div class="demo-preview">
+        <div class="form-group">
+          <label class="form-label">Prenume</label>
+          <input class="form-input" placeholder="ex. Ana" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span class="required">*</span></label>
+          <input class="form-input" placeholder="nume@exemplu.ro" />
+          <span class="form-hint">Trebuie sa contina @</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Varsta</label>
+          <input type="number" class="form-input" value="0" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Id</label>
+          <input class="form-input" value="3" disabled />
+        </div>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="erori">
+      <h2>Erori pe campuri</h2>
+      <p>Campul primeste is-invalid, iar mesajul sta sub el in form-error.</p>
+      <div class="demo-preview">
+        <div class="form-group">
+          <label class="form-label">Prenume <span class="required">*</span></label>
+          <input class="form-input is-invalid" />
+          <span class="form-error">Prenumele e obligatoriu</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span class="required">*</span></label>
+          <input class="form-input is-invalid" value="radu.gmail.com" />
+          <span class="form-error">Email invalid: lipseste @</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Varsta</label>
+          <input type="number" class="form-input is-invalid" value="-3" />
+          <span class="form-error">Varsta trebuie sa fie intre 1 si 120</span>
+        </div>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="formular">
+      <h2>Formular cu erori</h2>
+      <p>Cum arata „Utilizator nou” cand datele nu sunt bune: erorile sub campuri, Salveaza dezactivat.</p>
+      <div class="demo-preview">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Utilizator nou</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Prenume <span class="required">*</span></label>
+                <input class="form-input is-invalid" />
+                <span class="form-error">Prenumele e obligatoriu</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nume <span class="required">*</span></label>
+                <input class="form-input" value="Popescu" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email <span class="required">*</span></label>
+                <input class="form-input is-invalid" value="radu.gmail.com" />
+                <span class="form-error">Email invalid: lipseste @</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Varsta</label>
+                <input type="number" class="form-input is-invalid" value="-3" />
+                <span class="form-error">Varsta trebuie sa fie intre 1 si 120</span>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-outline">Renunta</button>
+              <button class="btn btn-primary" disabled>Salveaza</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="badge">
+      <h2>Badge</h2>
+      <p>Eticheta mica: neutru, avertisment, succes, pericol.</p>
+      <div class="demo-preview">
+        <span class="badge badge-neutral">41 ani</span>
+        <span class="badge badge-warning">17 ani</span>
+        <span class="badge badge-success">Activ</span>
+        <span class="badge badge-danger">Blocat</span>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="statistica">
+      <h2>Statistica</h2>
+      <p>Card cu o eticheta si o valoare.</p>
+      <div class="demo-preview">
+        <div class="stat-card">
+          <div class="stat-label">Varsta medie</div>
+          <div class="stat-value">26.6</div>
+        </div>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="tabel">
+      <h2>Rand de tabel</h2>
+      <p>Un singur rand; in tabel il repeti pentru fiecare utilizator.</p>
+      <div class="demo-preview">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">RP</div>
+                  <div>
+                    <div class="user-cell-name">Radu Popescu</div>
+                    <div class="user-cell-email">radu.popescu@gmail.com</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-warning">17 ani</span></td>
+              <td class="text-right">
+                <div class="table-actions">
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
+                  <button class="btn btn-danger btn-sm">Sterge</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="gol">
+      <h2>Lista goala</h2>
+      <p>Randul care apare cand nu e niciun utilizator.</p>
+      <div class="demo-preview">
+        <table>
+          <tbody>
+            <tr>
+              <td colspan="3">
+                <div class="empty-state">
+                  <h3>Niciun utilizator</h3>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pre></pre>
+    </section>
+
+    <section class="demo" id="dialog">
+      <h2>Dialog de confirmare</h2>
+      <p>In aplicatie il pui in modal-overlay, ca sa stea peste pagina.</p>
+      <div class="demo-preview">
+        <div class="modal">
+          <div class="modal-header">
+            <h3 class="modal-title">Stergi utilizatorul?</h3>
+          </div>
+          <div class="modal-body">
+            <p>Radu Popescu va fi sters definitiv.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline">Renunta</button>
+            <button class="btn btn-danger">Sterge definitiv</button>
+          </div>
+        </div>
+      </div>
+      <pre></pre>
+    </section>
+  </div>
+
+  <script>
+    document.querySelectorAll('.demo').forEach((demo) => {
+      const lines = demo.querySelector('.demo-preview').innerHTML.split('\n').filter((line) => line.trim() !== '');
+      const indent = Math.min(...lines.map((line) => line.match(/^ */)[0].length));
+      demo.querySelector('pre').textContent = lines.map((line) => line.slice(indent)).join('\n').replaceAll('=""', '');
+    });
+  </script>
+
+</body>
+</html>

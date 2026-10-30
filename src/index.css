@@ -510,6 +510,12 @@ tbody tr:last-child td {
   background: var(--danger-hover);
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .btn-sm {
   padding: 5px 10px;
   font-size: 12px;

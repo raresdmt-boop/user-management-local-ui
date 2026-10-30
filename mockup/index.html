@@ -3,25 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Management — Lista utilizatori</title>
+  <title>User Management — fără server</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ═══════════ BARA MOCKUP (nu intra in Angular) ═══════════ -->
   <div class="state-bar">
     <span class="state-bar-label">Mockup</span>
-    <a href="index.html" class="active">lista</a>
-    <a href="states.html">stari</a>
-    <a href="user-form.html">formular</a>
-    <a href="user-detail.html">detaliu</a>
-    <span class="state-bar-label">api</span>
-    <span>http://localhost:8080/api/users</span>
+    <a href="index.html" class="active">Aplicatia</a>
+    <a href="componente.html">Componente</a>
+    <span>totul în src/users/UserList.tsx</span>
   </div>
 
   <div class="app">
 
-    <!-- ═══════════ TOP BAR ═══════════ -->
     <header class="topbar">
       <div class="topbar-brand">
         <div class="icon">U</div>
@@ -33,91 +28,76 @@
       </div>
     </header>
 
-    <!-- ═══════════ SIDEBAR ═══════════ -->
     <aside class="sidebar">
       <nav class="sidebar-section">
         <div class="sidebar-label">Principal</div>
         <ul class="sidebar-nav">
-          <li><a href="index.html" class="active"><span class="nav-icon">&#9633;</span> Utilizatori</a></li>
-          <li><a href="user-form.html"><span class="nav-icon">&#43;</span> Utilizator nou</a></li>
-        </ul>
-      </nav>
-      <nav class="sidebar-section">
-        <div class="sidebar-label">Filtre rapide</div>
-        <ul class="sidebar-nav">
-          <li><a href="#"><span class="nav-icon">&#9679;</span> Adulti</a></li>
-          <li><a href="#"><span class="nav-icon">&#9679;</span> Top 3 dupa varsta</a></li>
-          <li><a href="#"><span class="nav-icon">&#9679;</span> Domeniu gmail.com</a></li>
-        </ul>
-      </nav>
-      <nav class="sidebar-section">
-        <div class="sidebar-label">Diagnostic</div>
-        <ul class="sidebar-nav">
-          <li><a href="states.html"><span class="nav-icon">&#9888;</span> Stari de incarcare</a></li>
+          <li><a href="#" class="active"><span class="nav-icon">&#9633;</span> Utilizatori</a></li>
         </ul>
       </nav>
     </aside>
 
-    <!-- ═══════════ CONTINUT ═══════════ -->
     <main class="main">
 
       <div class="page-header">
         <div>
-          <h1 class="page-title">Utilizatori</h1>
-          <p class="page-subtitle">Lista completa, cu filtrare si paginare pe server.</p>
+          <h1 class="page-title">Utilizatori (5)</h1>
         </div>
-        <a href="user-form.html" class="btn btn-primary">Utilizator nou</a>
       </div>
 
-      <!-- ─────── STATISTICI ─────── -->
-      <!-- GET /api/users            -> totalul (lungimea listei)   -->
-      <!-- GET /api/users/average-age -> { "averageAge": 26.6 }      -->
-      <!-- GET /api/users/count?youngerThan=18 -> { "count": 1 }     -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Total utilizatori <span class="endpoint-tag">GET /api/users</span></div>
-          <div class="stat-value">5</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Varsta medie <span class="endpoint-tag">GET /average-age</span></div>
+          <div class="stat-label">Varsta medie</div>
           <div class="stat-value">26.6</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Minori <span class="endpoint-tag">GET /count?youngerThan=18</span></div>
+          <div class="stat-label">Minori</div>
           <div class="stat-value">1</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Adulti <span class="endpoint-tag">GET /adults?minAge=18</span></div>
+          <div class="stat-label">Adulti</div>
           <div class="stat-value">4</div>
         </div>
       </div>
 
-      <!-- ─────── TABEL ─────── -->
-      <!-- GET /api/users/search?name=&minAge=&page=0&size=3&sort=lastName,asc -->
-      <!-- raspunde PageResponse { content, page, size, totalElements, totalPages, last } -->
       <div class="card">
-
-        <div class="table-toolbar">
-          <div class="table-filters">
-            <input type="search" class="form-input table-search" placeholder="Caut&#259; dup&#259; nume..." />
-            <input type="number" class="form-input" style="max-width: 150px" placeholder="Varsta minima" />
-            <select class="form-select" style="max-width: 190px">
-              <option>Sorteaza: nume (A-Z)</option>
-              <option>Sorteaza: nume (Z-A)</option>
-              <option>Sorteaza: varsta (crescator)</option>
-              <option>Sorteaza: varsta (descrescator)</option>
-            </select>
-            <button class="btn btn-outline btn-sm">Reincarca</button>
-          </div>
-          <span class="endpoint-tag">GET /api/users/search</span>
+        <div class="card-header">
+          <h2 class="card-title">Utilizator nou</h2>
         </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Prenume</label>
+              <input class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nume</label>
+              <input class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Varsta</label>
+              <input type="number" class="form-input" value="0" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" disabled>Salveaza</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="card">
+        <div class="table-toolbar">
+          <input type="search" class="form-input table-search" placeholder="Cauta dupa nume..." />
+        </div>
         <table>
           <thead>
             <tr>
               <th>Utilizator</th>
               <th>Varsta</th>
-              <th>Identificator</th>
               <th class="text-right">Actiuni</th>
             </tr>
           </thead>
@@ -134,11 +114,9 @@
                 </div>
               </td>
               <td><span class="badge badge-neutral">41 ani</span></td>
-              <td class="text-mono text-truncate">3f2a91c4</td>
               <td class="text-right">
                 <div class="table-actions">
-                  <a href="user-detail.html" class="btn btn-outline btn-sm">Detalii</a>
-                  <a href="user-form.html" class="btn btn-outline btn-sm">Editeaza</a>
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
                   <button class="btn btn-danger btn-sm">Sterge</button>
                 </div>
               </td>
@@ -155,11 +133,9 @@
                 </div>
               </td>
               <td><span class="badge badge-warning">17 ani</span></td>
-              <td class="text-mono text-truncate">a71b0e33</td>
               <td class="text-right">
                 <div class="table-actions">
-                  <a href="user-detail.html" class="btn btn-outline btn-sm">Detalii</a>
-                  <a href="user-form.html" class="btn btn-outline btn-sm">Editeaza</a>
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
                   <button class="btn btn-danger btn-sm">Sterge</button>
                 </div>
               </td>
@@ -176,11 +152,47 @@
                 </div>
               </td>
               <td><span class="badge badge-neutral">19 ani</span></td>
-              <td class="text-mono text-truncate">c0d84f17</td>
               <td class="text-right">
                 <div class="table-actions">
-                  <a href="user-detail.html" class="btn btn-outline btn-sm">Detalii</a>
-                  <a href="user-form.html" class="btn btn-outline btn-sm">Editeaza</a>
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
+                  <button class="btn btn-danger btn-sm">Sterge</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">IM</div>
+                  <div>
+                    <div class="user-cell-name">Ioana Marinescu</div>
+                    <div class="user-cell-email">ioana.marinescu@gmail.com</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-neutral">32 ani</span></td>
+              <td class="text-right">
+                <div class="table-actions">
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
+                  <button class="btn btn-danger btn-sm">Sterge</button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">MD</div>
+                  <div>
+                    <div class="user-cell-name">Mihai Dumitru</div>
+                    <div class="user-cell-email">mihai.dumitru@yahoo.com</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge badge-neutral">24 ani</span></td>
+              <td class="text-right">
+                <div class="table-actions">
+                  <button class="btn btn-outline btn-sm">Editeaza</button>
                   <button class="btn btn-danger btn-sm">Sterge</button>
                 </div>
               </td>
@@ -188,18 +200,103 @@
 
           </tbody>
         </table>
+      </div>
 
-        <!-- paginare: page / totalPages / totalElements din PageResponse -->
-        <div class="pagination">
-          <span class="pagination-info">Pagina 1 din 2 &middot; 5 utilizatori in total</span>
-          <div class="pagination-pages">
-            <button class="btn btn-outline btn-sm" disabled>Inapoi</button>
-            <button class="btn btn-primary btn-sm">1</button>
-            <button class="btn btn-outline btn-sm">2</button>
-            <button class="btn btn-outline btn-sm">Inainte</button>
+      <h2 class="card-title" style="margin: 24px 0 8px">Stari (apar doar cand e cazul)</h2>
+
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Editare utilizator</h2>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Prenume</label>
+              <input class="form-input" value="Radu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nume</label>
+              <input class="form-input" value="Popescu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" value="radu.popescu@gmail.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Varsta</label>
+              <input type="number" class="form-input" value="17" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline">Renunta</button>
+            <button class="btn btn-primary">Salveaza</button>
           </div>
         </div>
+      </div>
 
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Utilizator nou — date gresite</h2>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Prenume <span class="required">*</span></label>
+              <input class="form-input" value="Radu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nume <span class="required">*</span></label>
+              <input class="form-input" value="Popescu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email <span class="required">*</span></label>
+              <input class="form-input is-invalid" value="radu.gmail.com" />
+              <span class="form-error">Email invalid: lipseste @</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Varsta</label>
+              <input type="number" class="form-input is-invalid" value="-3" />
+              <span class="form-error">Varsta trebuie sa fie intre 1 si 120</span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" disabled>Salveaza</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Utilizator</th>
+              <th>Varsta</th>
+              <th class="text-right">Actiuni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3">
+                <div class="empty-state">
+                  <h3>Niciun utilizator</h3>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal" style="position: static; box-shadow: none; border: 1px solid var(--border); margin-bottom: 24px">
+        <div class="modal-header">
+          <h3 class="modal-title">Stergi utilizatorul?</h3>
+        </div>
+        <div class="modal-body">
+          <p>Radu Popescu va fi sters definitiv.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline">Renunta</button>
+          <button class="btn btn-danger">Sterge definitiv</button>
+        </div>
       </div>
 
     </main>
