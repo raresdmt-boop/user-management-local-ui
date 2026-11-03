@@ -23,6 +23,20 @@ export default function UserList() {
 
   const [searchMinAge, setSearchMinAge] = useState<string>("");
 
+  const [firstName, setFirstName] = useState<string>("");
+
+  const [lastName, setLastName] = useState<string>("");
+
+  const [email, setEmail] = useState<string>("");
+
+  const [age, setAge] = useState<number>(0);
+
+  const [nextId, setNextId] = useState<number>(7);
+
+  const [editedId, setEditedId] = useState<number>(0);
+
+  const canSave: boolean = firstName !== "" && lastName !== "" && age > 0;
+
   const filteredUsers = users.filter((user) =>
       `${user.firstName} ${user.lastName}`
           .toLowerCase()
@@ -67,14 +81,49 @@ export default function UserList() {
   }
 
   function addUser() {
+
+    if(editedId !==0) {
+      setUsers(users.map(user =>
+      user.id === editedId ? {...user, firstName, lastName, email, age}
+          : user
+      ));
+
+      setEditedId(0);
+      setAge(0);
+      setEmail("");
+      setFirstName("");
+      setLastName("");
+      return;
+    }
+
     const newUser: User = {
-      id: 7,
-      firstName: "Sorin",
-      lastName: "Grindeanu",
-      email: "psd@naspa.ro",
-      age: 71
+      id: nextId,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      age: age
     };
     setUsers([...users, newUser]);
+    setNextId(nextId + 1);
+    setAge(0);
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+  }
+
+  function reset() {
+    setAge(0);
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+  }
+
+  function edit(user: User) {
+    setEditedId(user.id);
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setEmail(user.email);
+    setAge(user.age);
   }
 
 
@@ -91,8 +140,11 @@ export default function UserList() {
             <p className="page-subtitle">Lista completa, cu filtrare si paginare pe server.</p>
           </div>
           <button
-              onClick={() => {addUser()}}
-              className="btn btn-primary">Utilizator nou</button>
+              onClick={() => {
+                addUser()
+              }}
+              className="btn btn-primary">Utilizator nou
+          </button>
         </div>
 
         <div className="stats-grid">
@@ -115,6 +167,52 @@ export default function UserList() {
         </div>
 
         <div className="card">
+          <div className="card-header">
+            <h2 className="card-title">Utilizator nou</h2>
+          </div>
+          <div className="card-body">
+            <div className="form-grid">
+              <div className="form-group">
+                <label className="form-label">Prenume</label>
+                <input className="form-input"
+                       type="text"
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Nume</label>
+                <input className="form-input"
+                       type="text"
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}/>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Email</label>
+                <input className="form-input"
+                       type="text"
+                       value={email}
+                       onChange={(e) => setEmail(e.target.value)}/>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Varsta</label>
+                <input className="form-input"
+                       type="number"
+                       value={age}
+                       onChange={(e) => setAge(Number(e.target.value))}/>
+              </div>
+            </div>
+            <div className="form-actions">
+              <button onClick = {reset}
+                  className="btn btn-outline">Renunta</button>
+              <button disabled={!canSave}
+                  onClick = {addUser}
+                  className="btn btn-primary">Salveaza</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="card">
 
           <div className="table-toolbar">
             <div className="table-filters">
@@ -132,7 +230,7 @@ export default function UserList() {
                   value={searchMinAge}
                   onChange={(e) => setSearchMinAge(e.target.value)}
               />
-              <select className="form-select" >
+              <select className="form-select">
                 <option>Sorteaza: nume (A-Z)</option>
                 <option>Sorteaza: nume (Z-A)</option>
                 <option>Sorteaza: varsta (crescator)</option>
@@ -158,7 +256,7 @@ export default function UserList() {
             {filteredUsers.map((user) => (
 
                 <tr key={user.id}>
-                  <td>{user.firstName} {user.lastName}<br />{user.email}</td>
+                  <td>{user.firstName} {user.lastName}<br/>{user.email}</td>
                   <td>
                     <span className={user.age < 18 ? "badge badge-warning" : "badge badge-neutral"}>
                       {user.age} ani
@@ -166,8 +264,12 @@ export default function UserList() {
                   </td>
                   <td>{user.firstName[0]}{user.lastName[0]}</td>
                   <td>
-                    <button className="btn btn-outline btn-sm">Editeaza</button>
-                    <button onClick={() => {remove(user.id)}} className="btn btn-danger btn-sm">Sterge</button>
+                    <button onClick = {() => edit(user)}
+                        className="btn btn-outline btn-sm">Editeaza</button>
+                    <button onClick={() => {
+                      remove(user.id)
+                    }} className="btn btn-danger btn-sm">Sterge
+                    </button>
                   </td>
                 </tr>
             ))}
