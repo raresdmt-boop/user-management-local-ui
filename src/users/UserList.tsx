@@ -35,7 +35,13 @@ export default function UserList() {
 
   const [editedId, setEditedId] = useState<number>(0);
 
-  const canSave: boolean = firstName !== "" && lastName !== "" && age > 0;
+  const emailError: string = email !== "" &&
+  !email.includes("@") ? "Email invalid: lipseste @" : "";
+
+  const ageError: string = age !== 0 &&
+      (age < 0 || age > 120) ? "Varsta invalida" : "";
+
+  const canSave: boolean = firstName !== "" && lastName !== "" && age > 0 && emailError === "";
 
   const filteredUsers = users.filter((user) =>
       `${user.firstName} ${user.lastName}`
@@ -185,21 +191,26 @@ export default function UserList() {
                 <input className="form-input"
                        type="text"
                        value={lastName}
-                       onChange={(e) => setLastName(e.target.value)}/>
+                       onChange={(e) => setLastName(e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label className="form-label">Email</label>
                 <input className="form-input"
                        type="text"
                        value={email}
-                       onChange={(e) => setEmail(e.target.value)}/>
+                       onChange={(e) => setEmail(e.target.value)}
+                />
+                <span className="form-error">{emailError}</span>
               </div>
               <div className="form-group">
-                <label className="form-label">Varsta</label>
+              <label className="form-label">Varsta</label>
                 <input className="form-input"
                        type="number"
                        value={age}
-                       onChange={(e) => setAge(Number(e.target.value))}/>
+                       onChange={(e) => setAge(Number(e.target.value))}
+                />
+                <span className="form-error">{ageError}</span>
               </div>
             </div>
             <div className="form-actions">
